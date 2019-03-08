@@ -24,14 +24,28 @@ export class AppComponent implements OnInit {
     }).addTo(this.map);
 
     L.marker([53.016094, 18.566689])
-    .bindPopup('<b>Toruń!</b><br>Popup test.').openPopup()
-    .addTo(this.map);
+      .bindPopup('<b>Toruń!</b><br>Popup test.')
+      .openPopup()
+      .addTo(this.map);
 
     L.circle([53.016094, 18.566689], {
       color: 'red',
       fillColor: '#f03',
       fillOpacity: 0.5,
-      radius: 5500,
-  }).addTo(this.map);
+      radius: 5500
+    }).addTo(this.map);
+
+    this.map.on('click', (event) => {
+      this.onMapClick(event);
+    });
+  }
+
+  onMapClick(event) {
+    console.log(event.latlng);
+    L.popup().setLatLng(event.latlng)
+    .setContent('Miejsce w które kliknąłeś ma współrzędne ' + event.latlng)
+    .openOn(this.map);
   }
 }
+
+
